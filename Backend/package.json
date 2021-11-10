@@ -1,0 +1,17 @@
+{
+  "name": "supersal",
+  "version": "1.0.0",
+  "description": "The MEN of supersal",
+  "main": "app.ts",
+  "scripts": {
+      "start": "ts-node src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "express",
+    "mongodb"
+  ],
+  "author": "Mohamed Abo-mokh",
+  "license": "Apache-2.0"
+}
