@@ -4,7 +4,7 @@
   "description": "The MEN of supersal",
   "main": "app.ts",
   "scripts": {
-      "start": "ts-node src/app.ts",
+    "start": "ts-node src/App.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,5 +13,11 @@
     "mongodb"
   ],
   "author": "Mohamed Abo-mokh",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "@types/mongoose": "^5.11.97",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
+  }
 }
