@@ -2,7 +2,7 @@ const express = require("express");
 const authLogic = require("../business-logic-layer/auth-logic");
 const errorsHelper = require("../helpers/errors-helper");
 const router = express.Router();
-const CredentialsModel = require("../models/credentials.model");
+const CredentialsModel = require("../models/credential.model");
 const UserModel = require("../models/user.model");
 const jwt = require("../helpers/crypto-helper");
 
@@ -19,8 +19,8 @@ router.post('/login', async (request, response) => {
         // Logic: 
         const result = await authLogic.checkCredentialsAsync(credentials);
         if (typeof result === 'string') return response.status(401).send(result); // email or password are invalid
-
         result._doc.token = jwt.getNewToken(result);
+
 
         // Success: 
         response.json(result);
