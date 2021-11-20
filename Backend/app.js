@@ -8,6 +8,7 @@ const authController = require("./controllers/auth-controller");
 const categoryController = require("./controllers/category-controller");
 const imagesController = require("./controllers/image-controller");
 const productsController = require("./controllers/product-controller");
+const cartsController = require("./controllers/cart-controller");
 
 // ========= const used variables =========
 const app = express();
@@ -21,6 +22,7 @@ app.use("/api/auth",authController);
 app.use("/api/categories",categoryController);
 app.use("/api/images",imagesController);
 app.use("/api/products",productsController);
+app.use("/api/carts",cartsController);
 
 const PORT = process.env.PORT || 3001;
 
