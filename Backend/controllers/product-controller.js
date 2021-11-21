@@ -30,13 +30,13 @@ router.get("/:_id", async (request, response) => {
     }
 });
 
-router.post("/", async (request, response) => {
+router.post("/", verifyAdmin, async (request, response) => {
     try {
         const product = new ProductModel(request.body);
 
         // Validate: 
         const errors = await product.validateSync();
-        if (errors) return response.status(400).send(errors.message);
+        if (errors) return response.status(400).send(errorsHelper.mongooseError(errors));
 
         const addedProduct = await productLogic.addProductAsync(product);
         response.status(201).json(addedProduct);
@@ -46,7 +46,7 @@ router.post("/", async (request, response) => {
     }
 });
 
-router.patch("/:_id", async (request, response) => {
+router.patch("/:_id", verifyAdmin, async (request, response) => {
     try {
         const _id = request.params._id;
         request.body._id = _id;
@@ -55,6 +55,7 @@ router.patch("/:_id", async (request, response) => {
 
         const updatedProduct = await productLogic.updateProductAsync(product);
         if (!updatedProduct) return response.status(404).send(`_id ${_id} not found`);
+        
         response.json(updatedProduct);
     }
     catch (error) {
@@ -62,11 +63,11 @@ router.patch("/:_id", async (request, response) => {
     }
 });
 
-router.delete("/:_id", async (request, response) => {
+router.delete("/:_id", verifyAdmin, async (request, response) => {
     try {
         const _id = request.params._id;
 
-        const deletedProduct = await logic.deleteProductAsync(_id);
+        const deletedProduct = await productLogic.deleteProductAsync(_id);
         if (!deletedProduct) return response.status(404).send(`_id ${_id} not found`);
         response.sendStatus(204);
     }

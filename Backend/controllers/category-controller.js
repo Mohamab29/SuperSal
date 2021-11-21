@@ -27,7 +27,7 @@ router.post("/", async (request, response) => {
 
         //validate
         const errors = await category.validateSync();
-        if (errors) return response.status(400).send(errors);
+        if (errors) return response.status(400).send(errorsHelper.mongooseError(errors));
 
         const addedCategory = await categoryLogic.addCategoryAsync(category);
         // success

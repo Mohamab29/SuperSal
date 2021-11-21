@@ -19,7 +19,7 @@ function updateProductAsync(product) {
 }
 
 function deleteProductAsync(_id) {
-    return ProductModel.findByIdAndDelete(_id).exec();
+    return ProductModel.findByIdAndRemove(_id).exec();
 }
 
 module.exports = {

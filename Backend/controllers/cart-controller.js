@@ -46,7 +46,7 @@ router.post('/', async (request, response) => {
         const cart = new CartModel(request.body);
 
         const errors = await cart.validateSync();
-        if (errors) return response.status(400).send(errors);
+        if (errors) return response.status(400).send(errorsHelper.mongooseError(errors));
 
         const addedCart = await cartLogic.addCartAsync(cart);
 
@@ -61,8 +61,11 @@ router.patch('/', async (request, response) => {
     try {
         const cart = new CartModel(request.body);
 
+        const errors = await cart.validateSync();
+        if (errors) return response.status(400).send(errorsHelper.mongooseError(errors));
+        
         const updatedCart = await cartLogic.updateCartAsync(cart);
-        if(!updatedCart) return response.status(400).send("send valid values");
+        if (!updatedCart) return response.status(404).send("cart was not found");
 
         response.status(201).json(updatedCart);
 

@@ -24,6 +24,6 @@ CartSchema.virtual("user", {
     justOne: true
 });
 
-const CartModel = mongoose.model("CartSchema", CartSchema, "carts");
+const CartModel = mongoose.model("CartModel", CartSchema, "carts");
 
 module.exports = CartModel;
