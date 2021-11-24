@@ -1,0 +1,26 @@
+.layout {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr 7fr 1fr;
+}
+
+.layout>header {
+    grid-column: 1/7;
+    grid-row: 1/2;
+    border: 1px solid black;
+}
+
+.layout>main {
+    width: 100%;
+    grid-column: 1/7;
+    grid-row: 2/3;
+    border: 1px solid black;
+}
+
+.layout>footer {
+    border: 1px solid black;
+    width: 100%;
+    grid-column: 1/7;
+    grid-row: 3/4;
+}

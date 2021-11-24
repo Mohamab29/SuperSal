@@ -1,0 +1,23 @@
+.login-panel {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.login-form {
+
+    width: 80%;
+    height: 70%;
+    margin-left: 3rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+form {
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}

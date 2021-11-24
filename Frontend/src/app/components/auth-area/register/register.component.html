@@ -1,0 +1,12 @@
+<div class="register-page">
+  <div class="register-form">
+    <ng-template *ngIf="!successSecond">
+      <form class="first-step">
+          <button type="submit">move to next stage</button>
+      </form>
+    </ng-template>
+    <ng-template *ngIf="successSecond">
+      <form class="second-step">here 2</form>
+    </ng-template>
+  </div>
+</div>
