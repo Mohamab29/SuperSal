@@ -14,7 +14,7 @@ router.post('/login', async (request, response) => {
 
         // Validation: 
         const errors = credentials.validateLogin();
-        if (errors) return response.status(400).send(errorsHelper.mongooseError(errors));
+        if (errors) return response.status(400).send(errors);
 
         // Logic: 
         const result = await authLogic.checkCredentialsAsync(credentials);
@@ -39,7 +39,7 @@ router.post("/register", async (request, response) => {
 
         // Validation: 
         const errors = await user.validateSync();
-        if (errors) return response.status(400).send(errorsHelper.mongooseError(errors));
+        if (errors) return response.status(400).send(errors);
 
 
         // Logic: 

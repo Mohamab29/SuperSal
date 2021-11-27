@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
 
         this.notify.error("You are not logged-in");
         
-        this.router.navigateByUrl("/welcome-page");
+        this.router.navigateByUrl("/home");
 
         return false;
     }

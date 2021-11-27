@@ -1,11 +1,17 @@
 <div class="app-bar">
   <div class="left-header">
     <a routerLink="/home">
-    <img src="../../../../assets/images/s_logo.png" />
+      <img src="../../../../assets/images/s_logo.png" />
     </a>
   </div>
   <div class="right-header">
     <p>Please contact us</p>
-    <p>Hello guest</p>
+    <div *ngIf="!user; else showName">
+      <p>Hello guest</p>
+    </div>
+    <ng-template #showName>
+      <p>Hello {{ user.firstName + " " + user.lastName }}</p>
+      <app-logout></app-logout>
+    </ng-template>
   </div>
 </div>

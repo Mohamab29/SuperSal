@@ -1,1 +1,12 @@
-<p> home works</p>
+<div class="welcome-page">
+  <div class="{{ user ? 'login-panel' : 'start-shopping-panel' }}">
+    <ng-template [ngIf]="!user">
+      <app-login></app-login>
+    </ng-template>
+    <ng-template  [ngIf]="user">
+      <app-start-shopping></app-start-shopping>
+    </ng-template>
+  </div>
+  <div class="website-information">Stuff about the the website</div>
+  <div class="about-website">some other stuff about the website</div>
+</div>
