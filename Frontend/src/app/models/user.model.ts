@@ -4,6 +4,7 @@ export class UserModel {
   lastName: string;
   username: string;
   password: string;
+  confirmPassword: string;
   city: string;
   street: string;
   isAdmin: boolean;

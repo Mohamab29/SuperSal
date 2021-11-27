@@ -13,7 +13,7 @@
     align-items: center;
 }
 
-.first-step {
+.step {
     border: 1px solid black;
     height: 80%;
     width: 60%;
@@ -23,7 +23,7 @@
     row-gap: 1rem;
 }
 
-label:nth-child(1) {
+form>label:nth-child(1) {
     margin-top: 3rem;
 }
 
@@ -36,7 +36,40 @@ input {
     width: 50%;
 }
 
+input~span {
+    margin-left: 3rem;
+    color: red;
+
+}
+
 .btn-nxt-stage {
     margin: auto;
     width: 40%;
+}
+
+.btn-submit {
+    margin: auto;
+    width: 40%;
+}
+
+.back-to-home-btn {
+    position: absolute;
+    left: 70px;
+    top:130px;
+    width: 6rem;
+}
+
+.back-btn {
+    width: 30%;
+    position: relative;
+    left: 10px;
+    top: 10px;
+    
+}
+.back-btn > a{
+    font-size:1.2rem;
+    background: whitesmoke;
+    border: 1px solid black;
+    text-decoration: none;
+    
 }

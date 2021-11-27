@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home-area/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/auth-area/register/register.component';
 import { LoginComponent } from './components/auth-area/login/login.component';
+import { WelcomePageComponent } from './components/home-area/welcome-page/welcome-page.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoginComponent } from './components/auth-area/login/login.component';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
+    WelcomePageComponent,
   ],
   imports: [
     BrowserModule,
