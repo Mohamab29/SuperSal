@@ -1,0 +1,38 @@
+.main-shopping {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-shopping>div {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+div>p{
+    height: 15%;
+    width: 100%;
+    font-size: 1.2rem;
+    text-align: center;
+}
+a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    align-self: center;
+    height: 3rem;
+    padding:1rem;
+    border-radius: 10px 10px;
+    background-color: azure;
+    text-decoration: none;
+    color: blueviolet;
+    border: 1px solid grey;
+}
+
+a:hover {
+    background-color: beige;
+}

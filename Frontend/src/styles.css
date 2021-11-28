@@ -6,11 +6,24 @@
 
 html, body {
     padding: 0;
-    height: 100%;
     width: 100%;
     background-color: antiquewhite;
-    font-family: 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #171515;
+}
+
+@media screen and (max-width:700px) {
+    html, body {
+        height: 100vw;
+    }
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }

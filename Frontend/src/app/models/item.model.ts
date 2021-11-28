@@ -5,5 +5,5 @@ export class ItemModel {
   quantity: number;
   totalPrice: number;
   _id: string;
- 
+  product: ProductModel;
 }

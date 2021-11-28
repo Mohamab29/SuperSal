@@ -1,1 +1,27 @@
-<p>start-shopping works!</p>
+<div class="main-shopping">
+  <div *ngIf="!status">
+    <h2>Welcome to supersal</h2>
+    <a routerLink="/products"> Start shopping! </a>
+  </div>
+  <div *ngIf="status === 'CLOSED'">
+    <p>
+      Your last purchase was made on {{ cart.createdAt | date: "dd/MM/YY" }}
+    </p>
+    <a routerLink="/products">Start shopping again!</a>
+  </div>
+  <div *ngIf="status === 'OPEN'">
+    <p>
+      Your unfinished cart that you opened on
+      {{ cart.createdAt | date: "dd/MM/YY" }},<br />
+      is waiting for you ...
+    </p>
+    <p>Your total price was : {{ totalPrice }}</p>
+    <a routerLink="/products">Continue shopping</a>
+  </div>
+  <div *ngIf="status === 'EMPTY'">
+    <p>
+      You have an empty cart,<br/> created at {{ cart.createdAt | date: "dd/MM/YY" }}
+    </p>
+    <a routerLink="/products">want to continue shopping?</a>
+  </div>
+</div>

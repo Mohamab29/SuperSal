@@ -1,0 +1,16 @@
+<div class="products-list">
+  <div class="category-nav">
+    <button (click)="handleSideBar()">Show sidebar</button>
+    here will be the nav category
+  </div>
+  <div class="cart-sidebar">
+    <app-cart-sidebar opened="{{ showSideBar }}"></app-cart-sidebar>
+  </div>
+  <div class="products-container">
+    <div class="search-container">
+      <label for="searchInput">Search:</label>
+      <input name="searchInput" type="text" length="50" />
+    </div>
+    <div class="products-content">here will have content</div>
+  </div>
+</div>

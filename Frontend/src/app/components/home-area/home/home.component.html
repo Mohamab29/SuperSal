@@ -3,10 +3,12 @@
     <ng-template [ngIf]="!user">
       <app-login></app-login>
     </ng-template>
-    <ng-template  [ngIf]="user">
+    <ng-template [ngIf]="user">
       <app-start-shopping></app-start-shopping>
     </ng-template>
   </div>
-  <div class="website-information">Stuff about the the website</div>
+  <div class="website-information">
+    <app-website-information></app-website-information>
+  </div>
   <div class="about-website">some other stuff about the website</div>
 </div>

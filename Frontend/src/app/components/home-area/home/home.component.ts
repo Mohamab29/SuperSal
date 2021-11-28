@@ -10,6 +10,7 @@ import store from 'src/app/redux/store';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   public user = store.getState().authState.user;
+  
   public unsubscribe: Unsubscribe;
   constructor() {}
 
