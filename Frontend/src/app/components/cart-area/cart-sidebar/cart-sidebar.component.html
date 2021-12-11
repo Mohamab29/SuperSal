@@ -1,3 +1,39 @@
-<mat-drawer #drawer class="example-sidenav" mode="side" opened={{opened}} >
-  <p>Auto-resizing sidenav</p>
+<mat-drawer #drawer class="side-nav" mode="side" opened="{{ opened }}">
+  <div class="cart">
+    <div class="cart-hedaer">
+      <h2 class="mat-title">Your cart:</h2>
+      <ng-template [ngIf]="cartItems.length > 0">
+        <h3 class="mat-subheading-2">Total items: {{ cartItems.length }}</h3>
+      </ng-template>
+      <mat-divider></mat-divider>
+    </div>
+    <div class="cart-content">
+      <ng-template [ngIf]="cartItems">
+        <app-cart-item
+          *ngFor="let item of cartItems"
+          [cartItem]="item"
+        ></app-cart-item>
+      </ng-template>
+    </div>
+    <div class="cart-actions">
+      <mat-divider class="cart-action-divider"></mat-divider>
+      <p>Total price: {{ cartTotalPrice | currency: "ILS" }}</p>
+      <button
+        mat-raised-button
+        color="warn"
+        disabled="{{ cart?.status === 'EMPTY' }}"
+        (click)="clearItems()">
+
+        Clear All
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        disabled="{{ cart?.status === 'EMPTY' }}"
+        (click)="goToOrder()"
+      >
+        Order
+      </button>
+    </div>
+  </div>
 </mat-drawer>

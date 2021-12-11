@@ -40,8 +40,8 @@ const OrderSchema = mongoose.Schema({
     },
     creditCard: {
         type: String,
-        minLength: [4, "Credit Card Number must be 4 digits"],
-        maxLength: [4, "Credit Card Number must be 4 digits"],
+        minLength: [7, "Credit Card Number at least 7 digits"],
+        maxLength: [16, "Credit Card Number at most 16 digits"],
         required: [true, "4 digits of credit card number required"]
 
     }

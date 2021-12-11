@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Unsubscribe } from 'redux';
 import { ProductModel } from 'src/app/models/product.model';
 import store from 'src/app/redux/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products-list',
@@ -15,7 +16,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   public unsubscribeFromProducts: Unsubscribe;
   constructor(
     private notify: NotifyService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private router: Router
   ) {}
   public showSideBar = 'true';
   async ngOnInit() {
@@ -24,7 +26,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       this.unsubscribeFromProducts = store.subscribe(() => {
         this.products = store.getState().productsState.products;
       });
-    } catch (error) {
+    } catch (error: any) {
+     
       this.notify.error(error);
     }
   }
@@ -43,7 +46,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         return;
       }
       this.products = await this.productsService.findProductsByPattern(value);
-
     } catch (error) {
       this.notify.error(error);
     }

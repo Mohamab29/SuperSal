@@ -1,0 +1,28 @@
+<div class="order-items-container">
+  <div class="items-header">
+    <h2 class="mat-title">Your order:</h2>
+    <ng-template [ngIf]="orderItems?.length > 0">
+      <h3 class="mat-subheading-2">Total items: {{ orderItems.length }}</h3>
+    </ng-template>
+    <a
+      routerLink="/products"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Back to products</a
+    >
+    <mat-divider></mat-divider>
+  </div>
+  <div class="items-content">
+    <ng-template [ngIf]="orderItems">
+      <app-cart-item
+        [isOrder]="true"
+        *ngFor="let item of orderItems"
+        [cartItem]="item"
+      ></app-cart-item>
+    </ng-template>
+  </div>
+  <div class="items-footer">
+    <mat-divider></mat-divider>
+    <p>Total price: {{ totalPrice | currency: "ILS" }}</p>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="content">
+  <div class="cart-area">
+    <app-order-cart
+      [orderItems]="orderItems"
+      [totalPrice]="totalPrice"
+    ></app-order-cart>
+  </div>
+  <div class="order-form">
+    <app-order-form [orderItems]="orderItems" [cart]="cart"></app-order-form>
+  </div>
+</div>

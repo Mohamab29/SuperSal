@@ -1,0 +1,19 @@
+<div class="cart-item">
+  <img src="{{ imageAddress }}" alt="{{ cartItem.product._id }}" />
+  <span class="item-quantity">{{ cartItem.quantity }}</span>
+  <span>{{ cartItem.product.name }}</span>
+  <span class="item-price">{{
+    cartItem.quantity * cartItem.product.price | currency: "ILS"
+  }}</span>
+  <ng-template [ngIf]="!isOrder">
+    <button
+      type="button"
+      class="delete-item-btn"
+      mat-mini-fab
+      color="warn"
+      (click)="deleteItem(cartItem._id)"
+    >
+      X
+    </button>
+  </ng-template>
+</div>

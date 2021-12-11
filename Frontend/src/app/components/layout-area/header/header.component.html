@@ -11,7 +11,10 @@
     </div>
     <ng-template #showName>
       <p>Hello {{ user.firstName + " " + user.lastName }}</p>
-      <app-logout></app-logout>
+      <div *ngIf="user; else nothing">
+        <button (click)="logout()">Logout</button>
+      </div>
+      <ng-template #nothing></ng-template>
     </ng-template>
   </div>
 </div>

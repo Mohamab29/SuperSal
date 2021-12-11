@@ -16,7 +16,10 @@ export class ProductCardComponent implements OnInit {
   @Input()
   public product: ProductModel;
   public openDialog() {
-    this.dialog.open(AddProductDialogComponent, { disableClose: true });
+    this.dialog.open(AddProductDialogComponent, {
+      disableClose: true,
+      data: { product: this.product },
+    });
   }
   ngOnInit(): void {
     this.imageAddress = environment.imagesUrl + this.product.imageName;

@@ -25,6 +25,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AddProductDialogComponent } from './components/products-area/add-product-dialog/add-product-dialog.component';
+import { CartItemComponent } from './components/cart-area/cart-item/cart-item.component';
+import { OrderCartComponent } from './components/order-area/order-cart/order-cart.component';
+import { OrderComponent } from './components/order-area/order/order.component';
+import { OrderFormComponent } from './components/order-area/order-form/order-form.component';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from "@angular/material/icon";
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -42,6 +51,10 @@ import { AddProductDialogComponent } from './components/products-area/add-produc
     CartSidebarComponent,
     ProductCardComponent,
     AddProductDialogComponent,
+    CartItemComponent,
+    OrderCartComponent,
+    OrderComponent,
+    OrderFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +69,11 @@ import { AddProductDialogComponent } from './components/products-area/add-produc
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     {

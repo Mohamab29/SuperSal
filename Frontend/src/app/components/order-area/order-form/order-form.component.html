@@ -1,0 +1,80 @@
+<div class="form-container">
+  <form class="form" [formGroup]="orderForm" (submit)="submitOrder()">
+    <mat-form-field>
+      <mat-label>City: </mat-label>
+      <input matInput type="text" [formControl]="cityControl" required />
+      <mat-error *ngIf="cityControl.errors?.required && cityControl.touched"
+        >City is missing</mat-error
+      >
+      <mat-error *ngIf="cityControl.errors?.minlength && cityControl.touched"
+        >City is minimum length is 2 letters</mat-error
+      >
+      <mat-error *ngIf="cityControl.errors?.maxlength && cityControl.touched"
+        >City is maximum length is 40 letters</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Street: </mat-label>
+      <input matInput type="text" [formControl]="streetControl" required />
+      <mat-error *ngIf="streetControl.errors?.required && streetControl.touched"
+        >Street is missing</mat-error
+      >
+      <mat-error
+        *ngIf="streetControl.errors?.minlength && streetControl.touched"
+        >Street is minimum length is 2 letters</mat-error
+      >
+      <mat-error
+        *ngIf="streetControl.errors?.maxlength && streetControl.touched"
+        >Street is maximum length is 40 letters</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose Delivery Date: </mat-label>
+      <input
+        matInput
+        [formControl]="deliveryDateControl"
+        [min]="minDate"
+        [max]="maxDate"
+        [matDatepicker]="picker"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker"
+        class="date-icon"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error
+        *ngIf="
+          deliveryDateControl.errors?.required && deliveryDateControl.touched
+        "
+        >Date is missing</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Credit card: </mat-label>
+
+      <input matInput type="text" [formControl]="creditCardControl" required />
+      <mat-error
+        *ngIf="creditCardControl.errors?.required && creditCardControl.touched"
+        >Credit card is missing</mat-error
+      >
+      <mat-error
+        *ngIf="creditCardControl.errors?.minlength && creditCardControl.touched"
+        >Credit card card minimum length is 7 numbers</mat-error
+      >
+      <mat-error
+        *ngIf="creditCardControl.errors?.maxlength && creditCardControl.touched"
+        >Credit card maximum length is 16 numbers</mat-error
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="orderForm.status === 'INVALID'"
+    >
+      <mat-icon>check_box</mat-icon>
+
+      Check out
+    </button>
+  </form>
+</div>

@@ -19,20 +19,19 @@ export class LogoutComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.unsubscribe = store.subscribe(() => {
-      this.user = store.getState().authState.user;
-    });
-  }
-  ngOnDestroy(): void {
-    this.unsubscribe();
-  }
-  public async logout() {
+  async ngOnInit() {
     try {
-      await this.authService.logout();
+      this.unsubscribe = store.subscribe(() => {
+        this.user = store.getState().authState.user;
+      });
+      this.authService.logout();
       this.router.navigateByUrl('/home', { replaceUrl: true });
     } catch (error) {
       this.notify.error(error);
     }
   }
+  ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
 }

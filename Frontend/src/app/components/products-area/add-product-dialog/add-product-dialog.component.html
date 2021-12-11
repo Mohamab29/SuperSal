@@ -1,8 +1,26 @@
 <h1 mat-dialog-title>Add amount for this item</h1>
-<div mat-dialog-content>
-  <label>Add a number: </label
-  ><input type="number" value="1" min="1" max="50" />
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-</div>
+<form (submit)="addItemQuantity()" [formGroup]="quantityForm">
+  <div mat-dialog-content class="input-group">
+    <label>Add a number: </label
+    ><input type="number" min="1" max="50" [formControl]="quantityControl" />
+    <span *ngIf="quantityControl.errors?.required && quantityControl.touched"
+      >Missing value</span
+    >
+    <span *ngIf="quantityControl.errors?.min && quantityControl.touched"
+      >Value must be at least 1</span
+    >
+    <span *ngIf="quantityControl.errors?.max && quantityControl.touched"
+      >Value can be at most 50</span
+    >
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-button
+      mat-dialog-close
+      type="submit"
+      [disabled]="quantityForm.status === 'INVALID'"
+    >
+      Done!
+    </button>
+  </div>
+</form>

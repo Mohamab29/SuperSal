@@ -75,4 +75,17 @@ router.delete("/:_id", async (request, response) => {
     }
 });
 
+router.delete("/delete-all/:cartId", async (request, response) => {
+    try {
+        const cartId = request.params.cartId;
+
+        const deletedItem = await itemLogic.clearItemsByCartIdAsync(cartId);
+        if (!deletedItem) return response.status(404).send(`_id ${_id} not found`);
+        response.sendStatus(204);
+    }
+    catch (error) {
+        errorsHelper.internalServerError(response, error);
+    }
+});
+
 module.exports = router;

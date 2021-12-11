@@ -1,0 +1,10 @@
+.input-group{
+    height:3rem;
+    position: relative;
+}
+span{
+    position: absolute;
+    color: red;
+    left: 1.2rem;
+    top: 1.6rem;
+}

@@ -9,6 +9,7 @@ export const environment = {
   cartsUrl: baseUrl + 'carts/',
   cartsByUserIdUrl: baseUrl + 'carts/get-by-user-id/',
   itemsUrl: baseUrl + 'items/',
+  clearItemsUrl: baseUrl + 'items/delete-all/',
   ordersUrl: baseUrl + 'orders/',
   registerUrl: baseUrl + 'auth/register/',
   loginUrl: baseUrl + 'auth/login/',

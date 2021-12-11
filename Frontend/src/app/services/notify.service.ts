@@ -18,7 +18,6 @@ export class NotifyService {
     }
     
     private getErrorMessage(err: any): string {
-        console.log(err)
 
         // Frontend exception throwing a string, e.g: throw "...":
         if (typeof err === "string") {

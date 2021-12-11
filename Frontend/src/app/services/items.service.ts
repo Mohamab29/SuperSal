@@ -24,7 +24,22 @@ export class ItemService {
     store.dispatch({ type: ItemsActionType.ItemsDownloaded, payload: items });
     return items;
   }
+  private itemAlreadyChosen(item: ItemModel): boolean | ItemModel {
+    const items = store.getState().itemsState.items;
+    for (const i of items) {
+      if (i.productId === item.productId) {
+        return i;
+      }
+    }
+    return false;
+  }
   public async addItem(item: ItemModel) {
+    const chosen = this.itemAlreadyChosen(item);
+    if (chosen instanceof Object) {
+      chosen.quantity = item.quantity;
+      const updatedItem = await this.updateItem(chosen);
+      return updatedItem;
+    }
     const addedItem = await this.http
       .post<ItemModel>(environment.itemsUrl, item)
       .toPromise();
@@ -39,8 +54,14 @@ export class ItemService {
     store.dispatch({ type: ItemsActionType.ItemUpdated, payload: updatedItem });
     return updatedItem;
   }
-  public async deleteItem(_id: string) {
+  public async deleteItemById(_id: string) {
     await this.http.delete<ItemModel>(environment.itemsUrl + _id).toPromise();
     store.dispatch({ type: ItemsActionType.ItemDeleted, payload: _id });
+  }
+  public async deleteAllItems(cartId: string) {
+    await this.http
+      .delete<ItemModel>(environment.clearItemsUrl + cartId)
+      .toPromise();
+    store.dispatch({ type: ItemsActionType.ItemsDeleted });
   }
 }
