@@ -76,7 +76,6 @@ export class CartSidebarComponent implements OnInit, OnDestroy {
         }
       });
     } catch (error: any) {
-      console.log(error.status);
       if (error?.status === 403 || error?.status === 401) {
         this.router.navigateByUrl('/logout', { replaceUrl: true });
       }

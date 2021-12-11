@@ -20,6 +20,9 @@
     height: 100%;
 }
 
+h3{
+    font-weight: bold;
+}
 .cart-content {
     overflow-y: scroll;
     overflow-x: auto;
@@ -32,7 +35,10 @@
     align-items: center;
     justify-content: space-between;
 }
-
+.cart-actions > p{
+    font-weight: bold;
+    font-size:1rem;
+}
 .cart-action-divider {
     width: 100%;
     position: absolute;

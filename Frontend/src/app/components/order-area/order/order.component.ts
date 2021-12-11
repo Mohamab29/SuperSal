@@ -32,7 +32,10 @@ export class OrderComponent implements OnInit {
       this.totalPrice = await this.itemService.getTotalCartPrice(
         this.orderItems
       );
-    } catch (error) {
+    } catch (error:any) {
+      if (error?.status === 403 || error?.status === 401) {
+        this.router.navigateByUrl('/logout', { replaceUrl: true });
+      }
       this.notify.error(error);
     }
   }

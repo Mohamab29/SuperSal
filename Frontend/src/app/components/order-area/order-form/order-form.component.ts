@@ -1,9 +1,9 @@
+import { CartService } from 'src/app/services/carts.service';
 import { ItemModel } from './../../../models/item.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartModel } from 'src/app/models/cart.model';
+import { CartModel, StatusType } from 'src/app/models/cart.model';
 import { OrderModel } from 'src/app/models/order.model';
-import { UserModel } from 'src/app/models/user.model';
 import { NotifyService } from 'src/app/services/notify.service';
 import { OrderService } from 'src/app/services/orders.service';
 import store from 'src/app/redux/store';
@@ -14,12 +14,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.css'],
 })
-export class OrderFormComponent implements OnInit {
+export class OrderFormComponent {
   public order = new OrderModel();
   @Input()
   public cart: CartModel;
   @Input()
   public orderItems: ItemModel[] = [];
+  @Input()
+  public totalPrice = 0;
+
   public minDate: Date;
   public maxDate: Date;
 
@@ -50,6 +53,7 @@ export class OrderFormComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
+    private cartService: CartService,
     private router: Router,
     private notify: NotifyService
   ) {
@@ -65,8 +69,22 @@ export class OrderFormComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-
+  public async submitOrder() {
+    try {
+      this.order.city = this.cityControl.value;
+      this.order.street = this.streetControl.value;
+      this.order.creditCard = this.creditCardControl.value;
+      this.order.deliveryDate = this.deliveryDateControl.value;
+      this.order.cartId = this.cart._id;
+      this.order.userId = this.cart.userId;
+      this.order.finalPrice = this.totalPrice;
+      await this.orderService.addOrderAsync(this.order);
+      this.cart.status = StatusType.CLOSED;
+      await this.cartService.updateCartStatus(this.cart);
+      this.notify.success('Order is complete');
+      this.router.navigateByUrl('/home', { replaceUrl: true });
+    } catch (error) {
+      this.notify.error(error);
+    }
   }
-  public submitOrder() {}
 }
