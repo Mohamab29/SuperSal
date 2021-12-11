@@ -10,6 +10,27 @@ const verifyAdmin = require("../middleware/verify-admin");
 
 var IMAGE_PATH = "./images"
 router.use(expressFileUpload()); // Insert the uploaded file into request.files object
+
+// GET image : */api/images/:imageName
+router.get("/:imageName", (request, response) => {
+    try {
+        // data
+        const imageName = "/" + request.params.imageName;
+        const imagePath = path.resolve(IMAGE_PATH) + imageName; // get absolute path 
+
+        // validation:
+        if (fs.existsSync(imagePath)) {
+            // success
+            return response.sendFile(imagePath);
+        }
+        else {
+            return response.status(404).send("requested image was not found.")
+        }
+    } catch (error) {
+        errorsHelper.internalServerError(response, error)
+    }
+});
+
 router.use(verifyLoggedIn);
 // POST upload image : */api/images
 router.post("/", verifyAdmin, async (request, response) => {
@@ -45,25 +66,7 @@ router.post("/", verifyAdmin, async (request, response) => {
     }
 });
 
-// GET image : */api/images/:imageName
-router.get("/:imageName", (request, response) => {
-    try {
-        // data
-        const imageName = "/" + request.params.imageName;
-        const imagePath = path.resolve(IMAGE_PATH) + imageName; // get absolute path 
 
-        // validation:
-        if (fs.existsSync(imagePath)) {
-            // success
-            return response.sendFile(imagePath);
-        }
-        else {
-            return response.status(404).send("requested image was not found.")
-        }
-    } catch (error) {
-        errorsHelper.internalServerError(response, error)
-    }
-});
 // DELETE an image : */api/image/:imageName
 router.delete("/:imageName", verifyAdmin, (request, response) => {
     try {

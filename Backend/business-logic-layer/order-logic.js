@@ -1,18 +1,29 @@
 const OrderModel = require("../models/order.model");
+const itemLogic = require("../business-logic-layer/item-logic");
 
-
-function getOrderById(_id){
-    return OrderModel.find({_id}).populate("cart").exec();
+function getAllOrdersAsync() {
+    return OrderModel.find().exec();
 }
-function addOrderAsync(order){
+async function getOrderByIdAsync(_id) {
+    const order = await OrderModel.findById({ _id }).populate("cart").exec();
+    const items = await itemLogic.getAllItemsByCartIdAsync(order.cartId);
+    let finalPrice = 0;
+    for (const item of items) {
+        finalPrice += item.totalPrice;
+    }
+    order.finalPrice = finalPrice;
+    return order;
+}
+function addOrderAsync(order) {
     return order.save();
 }
-function removeOrderAsync(_id){
+function removeOrderAsync(_id) {
     return OrderModel.findByIdAndRemove(_id).exec();
 }
 
 module.exports = {
-    getOrderById,
+    getOrderByIdAsync,
     addOrderAsync,
     removeOrderAsync,
+    getAllOrdersAsync,
 };

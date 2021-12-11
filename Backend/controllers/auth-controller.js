@@ -5,6 +5,7 @@ const router = express.Router();
 const CredentialsModel = require("../models/credential.model");
 const UserModel = require("../models/user.model");
 const jwt = require("../helpers/crypto-helper");
+const verifyLoggedIn = require("../middleware/verify-logged-in");
 
 //POST Login : */api/auth/login
 router.post('/login', async (request, response) => {
@@ -53,5 +54,7 @@ router.post("/register", async (request, response) => {
         errorsHelper.internalServerError(response, error);
     }
 });
+
+router.get('/is-logged-in', verifyLoggedIn, async (request, response) => {});
 
 module.exports = router;

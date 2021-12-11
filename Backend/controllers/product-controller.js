@@ -7,7 +7,6 @@ const verifyAdmin = require("../middleware/verify-admin");
 const router = express.Router();
 
 // */api/products
-router.use(verifyLogin);
 
 router.get("/", async (request, response) => {
     try {
@@ -17,6 +16,8 @@ router.get("/", async (request, response) => {
         errorsHelper.internalServerError(response, error);
     }
 });
+
+router.use(verifyLogin);
 
 //GET product by id
 router.get("/:_id", async (request, response) => {
@@ -55,11 +56,21 @@ router.patch("/:_id", verifyAdmin, async (request, response) => {
 
         const updatedProduct = await productLogic.updateProductAsync(product);
         if (!updatedProduct) return response.status(404).send(`_id ${_id} not found`);
-        
+
         response.json(updatedProduct);
     }
     catch (error) {
         errorsHelper.internalServerError(response, error);
+    }
+});
+router.get("/find-by-pattern/:pattern", async (request, response) => {
+    try {
+        const pattern = request.params.pattern;
+        const products = await productLogic.getProductsByRegexAsync(pattern);
+        response.json(products);
+    } catch (error) {
+        errorsHelper.internalServerError(response, error);
+
     }
 });
 

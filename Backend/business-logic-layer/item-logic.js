@@ -1,7 +1,11 @@
 const ItemModel = require("../models/item.model");
 
-function getAllItemsByCartIdAsync(cartId) {
-    return ItemModel.find({ cartId: cartId }).populate("product").exec();
+async function getAllItemsByCartIdAsync(cartId) {
+    const items = await ItemModel.find({ cartId: cartId }).populate("product").exec();
+    for (const item of items) {
+        item.totalPrice = item.product.price * item.quantity;
+    }
+    return items;
 }
 
 async function addItemAsync(item) {

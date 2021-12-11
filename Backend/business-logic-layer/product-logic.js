@@ -5,6 +5,10 @@ const ProductModel = require('../models/product.model');
 function getAllProductsAsync() {
     return ProductModel.find().populate("categories").exec();
 }
+// select * from products where name like ___
+function getProductsByRegexAsync(pattern) {
+    return ProductModel.find({ name: { $regex: pattern } }).populate("categories").exec();
+}
 
 function getOneProductAsync(_id) { 
     return ProductModel.findById(_id).exec();
@@ -28,4 +32,5 @@ module.exports = {
     addProductAsync,
     updateProductAsync,
     deleteProductAsync,
+    getProductsByRegexAsync,
 }

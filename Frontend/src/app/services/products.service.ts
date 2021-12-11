@@ -20,8 +20,15 @@ export class ProductsService {
         type: ProductsActionType.ProductsDownloaded,
         payload: products,
       });
+      return products;
     }
     return store.getState().productsState.products;
+  }
+  public async findProductsByPattern(value: string): Promise<ProductModel[]> {
+    const products = await this.http
+      .get<ProductModel[]>(environment.searchProductsUrl + value)
+      .toPromise();
+    return products;
   }
 
   public async getOneProductAsync(_id: string): Promise<ProductModel> {
@@ -73,7 +80,9 @@ export class ProductsService {
     return updatedProduct;
   }
   public async deleteProduct(_id: string) {
-    await this.http.delete<ProductModel>(environment.productsUrl + _id).toPromise();
-    store.dispatch({ type: ProductsActionType.ProductDeleted,payload:_id });
+    await this.http
+      .delete<ProductModel>(environment.productsUrl + _id)
+      .toPromise();
+    store.dispatch({ type: ProductsActionType.ProductDeleted, payload: _id });
   }
 }

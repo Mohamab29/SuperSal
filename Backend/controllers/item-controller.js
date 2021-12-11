@@ -17,7 +17,7 @@ router.get("/:cartId", async (request, response) => {
 
         response.json(items);
     } catch (error) {
-        errorsHelper.internalServerError(request, error);
+        errorsHelper.internalServerError(response, error);
     }
 });
 

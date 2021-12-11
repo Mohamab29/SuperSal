@@ -25,7 +25,7 @@ router.get('/get-by-user-id/:userId', async (request, response) => {
         const userId = request.params.userId;
         const status = request.query.status;
         const latest = request.query.latest;
-        let cart = {}
+        let cart;
         if (status) {
             cart = await cartLogic.getCartByUserIdAndStatusAsync(userId, status);
         } else if (latest === 'true') {

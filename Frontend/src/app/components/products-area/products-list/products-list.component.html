@@ -1,16 +1,48 @@
 <div class="products-list">
-  <div class="category-nav">
+  <div
+    class="{{
+      showSideBar === 'true' ? ' category-nav ' : 'category-nav _no-side-bar'
+    }}"
+  >
     <button (click)="handleSideBar()">Show sidebar</button>
     here will be the nav category
   </div>
-  <div class="cart-sidebar">
+  <div class="cart-sidebar" *ngIf="showSideBar === 'true'">
     <app-cart-sidebar opened="{{ showSideBar }}"></app-cart-sidebar>
   </div>
-  <div class="products-container">
+  <div
+    class="{{
+      showSideBar === 'true'
+        ? 'products-container'
+        : 'products-container _no-side-bar'
+    }}"
+  >
     <div class="search-container">
       <label for="searchInput">Search:</label>
-      <input name="searchInput" type="text" length="50" />
+      <input
+        name="searchInput"
+        type="text"
+        length="50"
+        (keyup)="searchProducts($event)"
+      />
     </div>
-    <div class="products-content">here will have content</div>
+    <div class="products-content">
+      <div *ngIf="!products.length">
+        <mat-progress-spinner
+          class="example-margin"
+          [color]="'primary'"
+          [mode]="'indeterminate'"
+          [value]="25"
+        >
+        </mat-progress-spinner>
+        <p>
+            Searching ...
+        </p>
+      </div>
+      <app-product-card
+        *ngFor="let p of products"
+        [product]="p"
+      ></app-product-card>
+    </div>
   </div>
 </div>

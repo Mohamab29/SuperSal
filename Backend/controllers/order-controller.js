@@ -5,14 +5,25 @@ const OrderModel = require("../models/order.model");
 const verifyLogin = require("../middleware/verify-logged-in");
 const router = express.Router();
 
-router.use(verifyLogin);
 
+// GET all orders
+router.get('/', async (request, response) => {
+    try {
+
+        const orders = await orderLogic.getAllOrdersAsync();
+
+        response.json(orders);
+    } catch (error) {
+        errorsHelper.internalServerError(response, error);
+    }
+});
+router.use(verifyLogin);
 // GET order by id
 router.get('/:_id', async (request, response) => {
     try {
         const _id = request.params._id;
 
-        const order = await orderLogic.getOrderById(_id);
+        const order = await orderLogic.getOrderByIdAsync(_id);
         if (!order) return response.status(401).send("Order was not found");
 
         response.json(order);

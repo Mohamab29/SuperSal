@@ -14,6 +14,7 @@ const CartSchema = mongoose.Schema({
         type: String,
         enum: ["CLOSED", "OPEN", "EMPTY"],
         required: true,
+        default:"EMPTY",
     }
 }, { versionKey: false, toJSON: { virtuals: true }, id: false });
 

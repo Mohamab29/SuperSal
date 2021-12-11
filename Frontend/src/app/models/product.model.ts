@@ -7,5 +7,5 @@ export class ProductModel {
     categoryId: string;
     imageName: string;
     image:FileList;
-    category: CategoryModel;
+    categories: CategoryModel;
 }

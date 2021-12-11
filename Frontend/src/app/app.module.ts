@@ -18,6 +18,13 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CartSidebarComponent } from './components/cart-area/cart-sidebar/cart-sidebar.component';
+import { ProductCardComponent } from './components/products-area/product-card/product-card.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
+import { AddProductDialogComponent } from './components/products-area/add-product-dialog/add-product-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +40,8 @@ import { CartSidebarComponent } from './components/cart-area/cart-sidebar/cart-s
     WebsiteInformationComponent,
     ProductsListComponent,
     CartSidebarComponent,
+    ProductCardComponent,
+    AddProductDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +51,11 @@ import { CartSidebarComponent } from './components/cart-area/cart-sidebar/cart-s
     HttpClientModule,
     BrowserAnimationsModule, // AJAX infrastructure
     MatSidenavModule,
+    MatCardModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
   ],
   providers: [
     {
