@@ -13,10 +13,10 @@ import store from 'src/app/redux/store';
 })
 export class ProductCardComponent implements OnInit {
   public imageAddress: string;
-  public user: UserModel;
+  public user: UserModel = new UserModel();
   constructor(public dialog: MatDialog) {}
   @Input()
-  public product: ProductModel;
+  public product: ProductModel = null;
   @Output()
   public emittedProduct = new EventEmitter<ProductModel>();
   public openDialog() {
@@ -25,7 +25,7 @@ export class ProductCardComponent implements OnInit {
       data: { product: this.product },
     });
   }
-  public editProduct(){
+  public editProduct() {
     this.emittedProduct.emit(this.product);
   }
   ngOnInit(): void {

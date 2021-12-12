@@ -3,11 +3,11 @@ const ProductModel = require('../models/product.model');
 
 
 function getAllProductsAsync() {
-    return ProductModel.find().populate("categories").exec();
+    return ProductModel.find().populate("category").exec();
 }
 // select * from products where name like ___
 function getProductsByRegexAsync(pattern) {
-    return ProductModel.find({ name: { $regex: pattern } }).populate("categories").exec();
+    return ProductModel.find({ name: { $regex: pattern } }).populate("category").exec();
 }
 
 function getOneProductAsync(_id) { 

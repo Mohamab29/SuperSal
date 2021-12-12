@@ -43,7 +43,7 @@ export class ProductsService {
     myFormData.append('categoryId', product.categoryId);
     myFormData.append('image', product.image.item(0));
     const imageName = await this.http
-      .post<string>(environment.imagesUrl, myFormData.get('image'))
+      .post(environment.imagesUrl, myFormData, { responseType: 'text' })
       .toPromise();
     myFormData.append('imageName', imageName);
     const addedProduct = await this.http
@@ -64,15 +64,18 @@ export class ProductsService {
     myFormData.append('name', product.name);
     myFormData.append('price', product.price.toString());
     myFormData.append('categoryId', product.categoryId);
+
     if (product.image) {
       myFormData.append('image', product.image.item(0));
       const imageName = await this.http
-        .post<string>(environment.imagesUrl, myFormData.get('image'))
+      .post(environment.imagesUrl, myFormData, { responseType: 'text' })
         .toPromise();
       myFormData.append('imageName', imageName);
+      console.log(imageName);
     }
+    console.log(product.image);
     const updatedProduct = await this.http
-      .put<ProductModel>(environment.productsUrl + product._id, myFormData)
+      .patch<ProductModel>(environment.productsUrl + product._id, myFormData)
       .toPromise();
     updatedProduct.category = { ...product.category };
 

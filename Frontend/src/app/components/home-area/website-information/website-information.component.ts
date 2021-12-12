@@ -11,14 +11,14 @@ import { Unsubscribe } from 'redux';
   templateUrl: './website-information.component.html',
   styleUrls: ['./website-information.component.css'],
 })
-export class WebsiteInformationComponent implements OnInit,OnDestroy {
+export class WebsiteInformationComponent implements OnInit, OnDestroy {
   public productsLength = 0;
   public ordersLength = 0;
   public unsubscribe: Unsubscribe;
   constructor(
     private notify: NotifyService,
     private productService: ProductsService,
-    private orderService:OrderService
+    private orderService: OrderService
   ) {}
 
   async ngOnInit() {
@@ -36,7 +36,9 @@ export class WebsiteInformationComponent implements OnInit,OnDestroy {
       this.notify.error(error);
     }
   }
-  ngOnDestroy():void{
-    this.unsubscribe();
+  ngOnDestroy(): void {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
   }
 }

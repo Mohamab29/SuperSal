@@ -7,17 +7,17 @@
     <button (click)="handleSideBar()">Show sidebar</button>
     here will be the nav category
   </div>
-  <ng-template [ngIf]="!user.isAdmin">
-    <div class="cart-sidebar" *ngIf="showSideBar === 'true'">
-      <app-cart-sidebar opened="{{ showSideBar }}"></app-cart-sidebar>
-    </div>
-  </ng-template>
   <ng-template [ngIf]="user.isAdmin">
-    <div class="cart-sidebar" *ngIf="showSideBar === 'true'">
+    <div class="sidebar" *ngIf="showSideBar === 'true'">
       <app-admin-sidebar
         opened="{{ showSideBar }}"
         [existingProduct]="productForEdit ? productForEdit : false"
       ></app-admin-sidebar>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="!user.isAdmin">
+    <div class="sidebar" *ngIf="showSideBar === 'true'">
+      <app-cart-sidebar opened="{{ showSideBar }}"></app-cart-sidebar>
     </div>
   </ng-template>
   <div

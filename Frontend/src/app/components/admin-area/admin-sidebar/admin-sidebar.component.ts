@@ -3,7 +3,14 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductModel } from 'src/app/models/product.model';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { CategoryModel } from 'src/app/models/category.model';
 import { NotifyService } from 'src/app/services/notify.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -15,11 +22,11 @@ import store from 'src/app/redux/store';
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.css'],
 })
-export class AdminSidebarComponent implements OnInit {
+export class AdminSidebarComponent implements OnInit, OnChanges {
   public product = new ProductModel();
   public categories: CategoryModel[] = [];
   public isAdd = true;
-  public user: UserModel;
+  public user: UserModel = new UserModel();
   // Controls:
   public nameControl = new FormControl(null, [
     Validators.required,
@@ -60,7 +67,20 @@ export class AdminSidebarComponent implements OnInit {
     this.categoryIdControl.setValue(p.categoryId);
   }
   public setImage(args: Event): void {
-    this.product.image = (args.target as HTMLInputElement).files;
+      this.product.image = (args.target as HTMLInputElement).files;
+      
+  }
+  public handleAdd(){
+      this.isAdd = true;
+      if(this.product){
+          this.productForm.patchValue({
+            nameControl: null,
+            priceControl: null,
+            imageControl: null,
+            categoryIdControl: null,
+          })
+          this.product = null;
+      }
   }
   public async handleSubmit(): Promise<void> {
     try {
@@ -72,7 +92,6 @@ export class AdminSidebarComponent implements OnInit {
         (c) => c._id == this.product.categoryId
       );
       this.product.category = this.categories[categoryIndex];
-
       if (this.isAdd) {
         await this.productsService.addProductAsync(this.product);
         this.notify.success('Product added successfully');
@@ -80,18 +99,20 @@ export class AdminSidebarComponent implements OnInit {
         await this.productsService.updateProductAsync(this.product);
         this.notify.success('Product updated successfully');
       }
-      this.isAdd = true;
     } catch (error) {
+        console.log(error);
       this.notify.error(error);
+    }
+  }
+  ngOnChanges(simpleChange: SimpleChanges): void {
+    if (this.existingProduct) {
+      this.product = { ...(this.existingProduct as ProductModel) };
+      this.initializeControls(this.product);
+      this.isAdd = false;
     }
   }
   async ngOnInit() {
     try {
-      if (this.existingProduct) {
-        this.product = { ...(this.existingProduct as ProductModel) };
-        this.initializeControls(this.product);
-        this.isAdd = false;
-      }
       this.categories = await this.http
         .get<CategoryModel[]>(environment.categoriesUrl)
         .toPromise();

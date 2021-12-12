@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const productLogic = require("../business-logic-layer/product-logic");
 const ProductModel = require("../models/product.model");
 const errorsHelper = require("../helpers/errors-helper");
@@ -33,6 +34,8 @@ router.get("/:_id", async (request, response) => {
 
 router.post("/", verifyAdmin, async (request, response) => {
     try {
+
+        // Model
         const product = new ProductModel(request.body);
 
         // Validate: 
@@ -56,7 +59,6 @@ router.patch("/:_id", verifyAdmin, async (request, response) => {
 
         const updatedProduct = await productLogic.updateProductAsync(product);
         if (!updatedProduct) return response.status(404).send(`_id ${_id} not found`);
-
         response.json(updatedProduct);
     }
     catch (error) {

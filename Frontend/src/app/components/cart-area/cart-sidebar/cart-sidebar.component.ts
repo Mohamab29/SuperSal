@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class CartSidebarComponent implements OnInit, OnDestroy {
   public cart: CartModel;
-  public user: UserModel;
+  public user: UserModel = new UserModel();
   public cartItems: ItemModel[] = [];
   public cartTotalPrice = 0;
   public unsubscribeFromEvents: Unsubscribe;
@@ -57,29 +57,30 @@ export class CartSidebarComponent implements OnInit, OnDestroy {
       this.cart = await this.cartService.getCartByUserIdAndLatest(
         this.user._id
       );
-      this.cartItems = await this.itemService.getItemsByCartId(this.cart._id);
-      this.cartTotalPrice = this.cartItems?.reduce(
-        (sum, item) => sum + item.totalPrice,
-        0
-      );
-      this.updateCart();
-      this.unsubscribeFromEvents = await store.subscribe(async () => {
-        try {
-          this.cartItems = store.getState().itemsState.items;
-          this.cartTotalPrice = this.cartItems?.reduce(
-            (sum, item) => sum + item.totalPrice,
-            0
-          );
-          this.updateCart();
-        } catch (error) {
-          this.notify.error(error);
-        }
-      });
+      if (this.cart || this.cart?.status === StatusType.OPEN) {
+        this.cartItems = await this.itemService.getItemsByCartId(this.cart._id);
+        this.cartTotalPrice = this.cartItems?.reduce(
+          (sum, item) => sum + item.totalPrice,
+          0
+        );
+        this.updateCart();
+        this.unsubscribeFromEvents = await store.subscribe(async () => {
+          try {
+            this.cartItems = store.getState().itemsState.items;
+            this.cartTotalPrice = this.cartItems?.reduce(
+              (sum, item) => sum + item.totalPrice,
+              0
+            );
+            this.updateCart();
+          } catch (error) {
+            this.notify.error(error);
+          }
+        });
+      }
     } catch (error: any) {
       if (error?.status === 403 || error?.status === 401) {
         this.router.navigateByUrl('/logout', { replaceUrl: true });
       }
-
       this.notify.error(error);
     }
   }
@@ -88,7 +89,9 @@ export class CartSidebarComponent implements OnInit, OnDestroy {
       if (this.unsubscribeFromEvents) {
         this.unsubscribeFromEvents();
       }
-      await this.cartService.updateCartStatus(this.cart);
+      if (this.cart) {
+        await this.cartService.updateCartStatus(this.cart);
+      }
     } catch (error) {
       this.notify.error(error);
     }

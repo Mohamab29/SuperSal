@@ -19,11 +19,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.unsubscribe = store.subscribe(() => {
       this.user = store.getState().authState.user;
     });
-    if (this.user?.isAdmin) {
-      this.router.navigateByUrl('/products', { replaceUrl: true });
-    }
   }
   ngOnDestroy(): void {
-    this.unsubscribe();
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
   }
 }

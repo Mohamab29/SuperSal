@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ItemService } from './../../../services/items.service';
 import { CartService } from '../../../services/carts.service';
 import { UserModel } from 'src/app/models/user.model';
@@ -18,16 +19,22 @@ export class StartShoppingComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
     try {
-      this.cart = await this.cartService.getCartByUserIdAndLatest(this.user._id);
+      this.cart = await this.cartService.getCartByUserIdAndLatest(
+        this.user._id
+      );
       if (this.cart) {
         this.status = this.cart.status;
         const items = await this.itemService.getItemsByCartId(this.cart._id);
         this.totalPrice = this.itemService.getTotalCartPrice(items);
+      }
+      if (this.user?.isAdmin) {
+        this.router.navigateByUrl('/products', { replaceUrl: true });
       }
     } catch (error) {
       console.log(error);

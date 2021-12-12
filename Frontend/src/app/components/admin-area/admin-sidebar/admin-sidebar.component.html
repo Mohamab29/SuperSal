@@ -1,11 +1,11 @@
 <mat-drawer #drawer class="side-nav" mode="side" opened="{{ opened }}">
   <div class="sidebar-header">
     <h2 class="mat-title">You can add or edit products here</h2>
-    <ng-template [ngIf]="isAdd">
-      <button mat-raised-button color="primary">
-        <mat-icon>add</mat-icon>
-      </button>
-    </ng-template>
+
+    <button mat-raised-button color="primary" (click)="handleAdd()">
+      <mat-icon>add</mat-icon>
+    </button>
+
     <mat-divider></mat-divider>
   </div>
   <div class="sidebar-form">
@@ -28,7 +28,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Product price: </mat-label>
-        <input matInput type="text" [formControl]="priceControl" />
+        <input matInput type="number" [formControl]="priceControl" />
         <mat-error *ngIf="priceControl.errors?.required && priceControl.touched"
           >price is missing</mat-error
         >
@@ -42,9 +42,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
         <mat-select [formControl]="categoryIdControl">
-          <mat-option [value]="0">{{
-            isAdd ? "Choose category" : product.category.name
-          }}</mat-option>
+          <mat-option [value]="0" disabled>{{ "Choose category" }}</mat-option>
           <mat-option *ngFor="let c of categories" [value]="c._id">
             {{ c.name }}
           </mat-option>
@@ -53,23 +51,20 @@
           >You must make a selection</mat-error
         >
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>Product price: </mat-label>
-        <ngx-mat-file-input
-          [formControl]="imageControl"
-          formControlName="fill"
-          placeholder="Upload image..."
-          (change)="setImage($event)"
-        ></ngx-mat-file-input>
-        <mat-icon matSuffix>folder</mat-icon>
-        <ng-template [ngIf]="isAdd">
-          <mat-error
-            *ngIf="imageControl.errors?.required && imageControl.touched"
-            >price is missing</mat-error
-          >
-        </ng-template>
-      </mat-form-field>
 
+      <div class="file-custom">
+        <input
+          [formControl]="imageControl"
+          (change)="setImage($event)"
+          type="file"
+          id="file"
+          class="file-input"
+        />
+        <label for="file">
+          Select file
+          <p class="file-name"></p>
+        </label>
+      </div>
       <button
         mat-raised-button
         color="primary"

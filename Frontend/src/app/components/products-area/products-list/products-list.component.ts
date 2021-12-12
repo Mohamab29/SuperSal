@@ -16,7 +16,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   public products: ProductModel[] = [];
   public unsubscribeFromProducts: Unsubscribe;
   public unsubscribeFromUser: Unsubscribe;
-  public user: UserModel;
+  public user: UserModel = new UserModel();
   public productForEdit: ProductModel;
 
   constructor(
@@ -43,6 +43,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         return;
       }
       this.products = await this.productsService.findProductsByPattern(value);
+    
     } catch (error) {
       this.notify.error(error);
     }

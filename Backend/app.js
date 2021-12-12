@@ -4,6 +4,7 @@ global.config =
 require("./data-access-layer/dal");
 const cors = require("cors");
 const express = require('express');
+const expressFileUpload = require("express-fileupload"); // npm i express-fileupload
 
 // ========= const used variables =========
 const authController = require("./controllers/auth-controller");
@@ -17,6 +18,7 @@ const orderController = require("./controllers/order-controller");
 
 // ========= starting the backend server =========
 const app = express();
+app.use(expressFileUpload()); // Insert the uploaded file into request.files object
 app.use(cors())
 app.use(express.json());
 

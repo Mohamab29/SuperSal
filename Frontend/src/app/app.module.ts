@@ -37,6 +37,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AdminSidebarComponent } from './components/admin-area/admin-sidebar/admin-sidebar.component';
 import {MatSelectModule} from '@angular/material/select';
 
+
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -78,6 +79,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+
+
   ],
   providers: [
     {

@@ -1,35 +1,37 @@
 <div class="mat-typography">
-  <mat-card class="card">
-    <img src="{{ imageAddress }}" class="card-image" />
-    <mat-card-content class="card-content">
-      <mat-card-title-group>
-        <mat-card-title>{{ product.name }}</mat-card-title>
-        <mat-card-subtitle>{{ product.category.name }}</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-divider class="content-divider"></mat-divider>
-      <p class="mat-body-1 mat-body-strong">
-        {{ product.price | currency }}
-      </p>
-      <ng-template [ngIf]="!user.isAdmin">
-        <button
-          mat-fab
-          color="primary"
-          class="add-to-cart-btn"
-          (click)="openDialog()"
-        >
-          Add
-        </button>
-      </ng-template>
-      <ng-template [ngIf]="user.isAdmin">
-        <button
-          mat-fab
-          color="accent"
-          class="add-to-cart-btn"
-          (click)="editProduct()"
-        >
-          Edit
-        </button>
-      </ng-template>
-    </mat-card-content>
-  </mat-card>
+  <ng-template [ngIf]="product">
+    <mat-card class="card">
+      <img src="{{ imageAddress }}" class="card-image" />
+      <mat-card-content class="card-content">
+        <mat-card-title-group>
+          <mat-card-title>{{ product?.name }}</mat-card-title>
+          <mat-card-subtitle>{{ product?.category?.name }}</mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-divider class="content-divider"></mat-divider>
+        <p class="mat-body-1 mat-body-strong">
+          {{ product.price | currency }}
+        </p>
+        <ng-template [ngIf]="!user.isAdmin">
+          <button
+            mat-fab
+            color="primary"
+            class="card-btn"
+            (click)="openDialog()"
+          >
+            Add
+          </button>
+        </ng-template>
+        <ng-template [ngIf]="user.isAdmin">
+          <button
+            mat-fab
+            color="accent"
+            class="card-btn"
+            (click)="editProduct()"
+          >
+            Edit
+          </button>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
 </div>

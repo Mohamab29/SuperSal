@@ -15,7 +15,7 @@
     grid-area: 1/2/2/3;
 }
 
-.cart-sidebar {
+.sidebar {
     grid-row: span 3;
     grid-column: span 1;
 }

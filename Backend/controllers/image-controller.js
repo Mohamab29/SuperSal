@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const expressFileUpload = require("express-fileupload"); // npm i express-fileupload
 const errorsHelper = require("../helpers/errors-helper");
 const uuid = require("uuid"); // npm i uuid
 const router = express.Router();
@@ -9,7 +8,6 @@ const verifyLoggedIn = require("../middleware/verify-logged-in");
 const verifyAdmin = require("../middleware/verify-admin");
 
 var IMAGE_PATH = "./images"
-router.use(expressFileUpload()); // Insert the uploaded file into request.files object
 
 // GET image : */api/images/:imageName
 router.get("/:imageName", (request, response) => {
