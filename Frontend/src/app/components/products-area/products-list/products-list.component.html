@@ -7,9 +7,19 @@
     <button (click)="handleSideBar()">Show sidebar</button>
     here will be the nav category
   </div>
-  <div class="cart-sidebar" *ngIf="showSideBar === 'true'">
-    <app-cart-sidebar opened="{{ showSideBar }}"></app-cart-sidebar>
-  </div>
+  <ng-template [ngIf]="!user.isAdmin">
+    <div class="cart-sidebar" *ngIf="showSideBar === 'true'">
+      <app-cart-sidebar opened="{{ showSideBar }}"></app-cart-sidebar>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="user.isAdmin">
+    <div class="cart-sidebar" *ngIf="showSideBar === 'true'">
+      <app-admin-sidebar
+        opened="{{ showSideBar }}"
+        [existingProduct]="productForEdit ? productForEdit : false"
+      ></app-admin-sidebar>
+    </div>
+  </ng-template>
   <div
     class="{{
       showSideBar === 'true'
@@ -35,11 +45,10 @@
           [value]="25"
         >
         </mat-progress-spinner>
-        <p>
-            Searching ...
-        </p>
+        <p>Searching ...</p>
       </div>
       <app-product-card
+        (emittedProduct)="productToEdit($event)"
         *ngFor="let p of products"
         [product]="p"
       ></app-product-card>

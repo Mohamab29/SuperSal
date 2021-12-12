@@ -34,6 +34,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AdminSidebarComponent } from './components/admin-area/admin-sidebar/admin-sidebar.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     OrderCartComponent,
     OrderComponent,
     OrderFormComponent,
+    AdminSidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
   ],
   providers: [
     {

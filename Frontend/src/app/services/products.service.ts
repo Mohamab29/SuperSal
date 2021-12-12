@@ -49,6 +49,7 @@ export class ProductsService {
     const addedProduct = await this.http
       .post<ProductModel>(environment.productsUrl, myFormData)
       .toPromise();
+    addedProduct.category = { ...product.category };
     store.dispatch({
       type: ProductsActionType.ProductAdded,
       payload: addedProduct,
@@ -73,6 +74,8 @@ export class ProductsService {
     const updatedProduct = await this.http
       .put<ProductModel>(environment.productsUrl + product._id, myFormData)
       .toPromise();
+    updatedProduct.category = { ...product.category };
+
     store.dispatch({
       type: ProductsActionType.ProductUpdated,
       payload: updatedProduct,

@@ -5,6 +5,7 @@ import { Unsubscribe } from 'redux';
 import { ProductModel } from 'src/app/models/product.model';
 import store from 'src/app/redux/store';
 import { Router } from '@angular/router';
+import { UserModel } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-products-list',
@@ -14,22 +15,18 @@ import { Router } from '@angular/router';
 export class ProductsListComponent implements OnInit, OnDestroy {
   public products: ProductModel[] = [];
   public unsubscribeFromProducts: Unsubscribe;
+  public unsubscribeFromUser: Unsubscribe;
+  public user: UserModel;
+  public productForEdit: ProductModel;
+
   constructor(
     private notify: NotifyService,
     private productsService: ProductsService,
     private router: Router
   ) {}
   public showSideBar = 'true';
-  async ngOnInit() {
-    try {
-      this.products = await this.productsService.getAllProductsAsync();
-      this.unsubscribeFromProducts = store.subscribe(() => {
-        this.products = store.getState().productsState.products;
-      });
-    } catch (error: any) {
-     
-      this.notify.error(error);
-    }
+  public productToEdit(value: ProductModel){
+    this.productForEdit = value; 
   }
   public handleSideBar() {
     if (this.showSideBar === 'true') {
@@ -50,7 +47,21 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       this.notify.error(error);
     }
   }
+  async ngOnInit() {
+    try {
+      this.products = await this.productsService.getAllProductsAsync();
+      this.unsubscribeFromProducts = store.subscribe(() => {
+        this.products = store.getState().productsState.products;
+      });
+      this.unsubscribeFromUser = store.subscribe(() => {
+        this.user = store.getState().authState.user;
+      });
+    } catch (error: any) {
+      this.notify.error(error);
+    }
+  }
   ngOnDestroy(): void {
     this.unsubscribeFromProducts();
+    this.unsubscribeFromUser();
   }
 }
