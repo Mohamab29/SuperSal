@@ -2,11 +2,11 @@
   <div class="sidebar-header">
     <h2 class="mat-title">You can add or edit products here</h2>
 
-    <button mat-raised-button color="primary" (click)="handleAdd()">
+    <button mat-raised-button color="primary"  class="add-btn" (click)="handleAdd()">
       <mat-icon>add</mat-icon>
     </button>
 
-    <mat-divider></mat-divider>
+
   </div>
   <div class="sidebar-form">
     <form (submit)="handleSubmit()" [formGroup]="productForm">

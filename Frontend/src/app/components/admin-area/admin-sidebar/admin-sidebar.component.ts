@@ -8,7 +8,6 @@ import {
   Input,
   OnChanges,
   OnInit,
-  SimpleChange,
   SimpleChanges,
 } from '@angular/core';
 import { CategoryModel } from 'src/app/models/category.model';
@@ -67,20 +66,20 @@ export class AdminSidebarComponent implements OnInit, OnChanges {
     this.categoryIdControl.setValue(p.categoryId);
   }
   public setImage(args: Event): void {
-      this.product.image = (args.target as HTMLInputElement).files;
-      
+    this.product.image = (args.target as HTMLInputElement).files;
   }
-  public handleAdd(){
-      this.isAdd = true;
-      if(this.product){
-          this.productForm.patchValue({
-            nameControl: null,
-            priceControl: null,
-            imageControl: null,
-            categoryIdControl: null,
-          })
-          this.product = null;
-      }
+  public handleAdd() {
+    this.isAdd = true;
+    if (this.product) {
+      this.productForm.reset();
+      this.productForm.markAsUntouched();
+      this.productForm.markAsPristine();
+      this.nameControl.setErrors(null);
+      this.priceControl.setErrors(null);
+      this.categoryIdControl.setErrors(null);
+
+      this.product = new ProductModel();
+    }
   }
   public async handleSubmit(): Promise<void> {
     try {
@@ -92,6 +91,10 @@ export class AdminSidebarComponent implements OnInit, OnChanges {
         (c) => c._id == this.product.categoryId
       );
       this.product.category = this.categories[categoryIndex];
+      if (!this.product.imageName && !this.product.image) {
+        this.notify.error('Please add an image');
+        return;
+      }
       if (this.isAdd) {
         await this.productsService.addProductAsync(this.product);
         this.notify.success('Product added successfully');
@@ -99,8 +102,9 @@ export class AdminSidebarComponent implements OnInit, OnChanges {
         await this.productsService.updateProductAsync(this.product);
         this.notify.success('Product updated successfully');
       }
+      this.handleAdd();
     } catch (error) {
-        console.log(error);
+      console.log(error);
       this.notify.error(error);
     }
   }

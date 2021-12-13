@@ -71,9 +71,7 @@ export class ProductsService {
       .post(environment.imagesUrl, myFormData, { responseType: 'text' })
         .toPromise();
       myFormData.append('imageName', imageName);
-      console.log(imageName);
     }
-    console.log(product.image);
     const updatedProduct = await this.http
       .patch<ProductModel>(environment.productsUrl + product._id, myFormData)
       .toPromise();

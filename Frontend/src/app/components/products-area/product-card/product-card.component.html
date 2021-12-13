@@ -9,7 +9,7 @@
         </mat-card-title-group>
         <mat-divider class="content-divider"></mat-divider>
         <p class="mat-body-1 mat-body-strong">
-          {{ product.price | currency }}
+          {{ product.price | currency: "ILS" }}
         </p>
         <ng-template [ngIf]="!user.isAdmin">
           <button

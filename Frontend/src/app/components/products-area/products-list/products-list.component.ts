@@ -6,6 +6,9 @@ import { ProductModel } from 'src/app/models/product.model';
 import store from 'src/app/redux/store';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
+import { CategoryModel } from 'src/app/models/category.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-products-list',
@@ -14,6 +17,7 @@ import { UserModel } from 'src/app/models/user.model';
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
   public products: ProductModel[] = [];
+  public categories: CategoryModel[] = [];
   public unsubscribeFromProducts: Unsubscribe;
   public unsubscribeFromUser: Unsubscribe;
   public user: UserModel = new UserModel();
@@ -22,11 +26,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   constructor(
     private notify: NotifyService,
     private productsService: ProductsService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
   public showSideBar = 'true';
-  public productToEdit(value: ProductModel){
-    this.productForEdit = value; 
+  public productToEdit(value: ProductModel) {
+    this.productForEdit = value;
   }
   public handleSideBar() {
     if (this.showSideBar === 'true') {
@@ -43,7 +48,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         return;
       }
       this.products = await this.productsService.findProductsByPattern(value);
-    
     } catch (error) {
       this.notify.error(error);
     }
@@ -57,7 +61,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       this.unsubscribeFromUser = store.subscribe(() => {
         this.user = store.getState().authState.user;
       });
+      this.categories = await this.http
+        .get<CategoryModel[]>(environment.categoriesUrl)
+        .toPromise();
     } catch (error: any) {
+      if (error.status === 401 || error.status === 403) {
+        this.router.navigateByUrl('/logout');
+      }
       this.notify.error(error);
     }
   }

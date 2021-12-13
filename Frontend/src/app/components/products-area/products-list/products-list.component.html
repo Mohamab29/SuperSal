@@ -4,8 +4,29 @@
       showSideBar === 'true' ? ' category-nav ' : 'category-nav _no-side-bar'
     }}"
   >
-    <button (click)="handleSideBar()">Show sidebar</button>
-    here will be the nav category
+    <button
+      class="menu-toggle-btn"
+      (click)="handleSideBar()"
+      mat-mini-fab
+      color="accent"
+    >
+      <mat-icon *ngIf="showSideBar !== 'true'"
+        >keyboard_double_arrow_right</mat-icon
+      >
+      <mat-icon *ngIf="showSideBar === 'true'"
+        >keyboard_double_arrow_left</mat-icon
+      >
+    </button>
+    <div class="categories-btn-group">
+      <button mat-raised-button color="primary">Show All</button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngFor="let category of categories"
+      >
+        {{ category.name }}
+      </button>
+    </div>
   </div>
   <ng-template [ngIf]="user.isAdmin">
     <div class="sidebar" *ngIf="showSideBar === 'true'">

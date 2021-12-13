@@ -15,7 +15,7 @@
       {{ cart.createdAt | date: "dd/MM/YY" }},<br />
       is waiting for you ...
     </p>
-    <p>Your total price was : {{ totalPrice }}</p>
+    <p>Your total price was : {{ totalPrice | number : '.2-2'}}</p>
     <a routerLink="/products">Continue shopping</a>
   </div>
   <div *ngIf="status === 'EMPTY'">

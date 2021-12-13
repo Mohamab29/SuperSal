@@ -5,6 +5,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { CartModel, StatusType } from 'src/app/models/cart.model';
 import store from 'src/app/redux/store';
+import { NotifyService } from 'src/app/services/notify.service';
 
 @Component({
   selector: 'app-start-shopping',
@@ -20,7 +21,8 @@ export class StartShoppingComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private itemService: ItemService,
-    private router: Router
+    private router: Router,
+    private notify: NotifyService
   ) {}
 
   async ngOnInit() {
@@ -36,8 +38,11 @@ export class StartShoppingComponent implements OnInit {
       if (this.user?.isAdmin) {
         this.router.navigateByUrl('/products', { replaceUrl: true });
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      this.notify.error(error);
+      if (error.status === 401 || error.status === 403) {
+        this.router.navigateByUrl('/logout');
+      }
     }
   }
 }

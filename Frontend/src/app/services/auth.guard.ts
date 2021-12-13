@@ -28,6 +28,7 @@ export class AuthGuard implements CanActivate {
         // HttpErrorResponse | HttpResponse<Response>
         // >(environment.isLoggedInUrl).toPromise();
         // console.log(response);
+
         return true;
       }
       console.log('here');
@@ -37,7 +38,7 @@ export class AuthGuard implements CanActivate {
       this.router.navigateByUrl('/home');
 
       return false;
-    } catch (error) {
+    } catch (error:any) {
       this.notify.error(error);
       return false;
     }
