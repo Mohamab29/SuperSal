@@ -32,8 +32,10 @@ export class StartShoppingComponent implements OnInit {
       );
       if (this.cart) {
         this.status = this.cart.status;
-        const items = await this.itemService.getItemsByCartId(this.cart._id);
-        this.totalPrice = this.itemService.getTotalCartPrice(items);
+        if (this.cart.status === StatusType.OPEN) {
+          const items = await this.itemService.getItemsByCartId(this.cart._id);
+          this.totalPrice = this.itemService.getTotalCartPrice(items);
+        }
       }
       if (this.user?.isAdmin) {
         this.router.navigateByUrl('/products', { replaceUrl: true });

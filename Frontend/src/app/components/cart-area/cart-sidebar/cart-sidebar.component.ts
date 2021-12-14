@@ -31,16 +31,18 @@ export class CartSidebarComponent implements OnInit, OnDestroy {
   public opened: string;
 
   public showFiller = false;
-  public updateCart(): void {
+  public async updateCart() {
     if (!this.cartItems?.length) {
       this.cart.status = StatusType.EMPTY;
     } else {
       this.cart.status = StatusType.OPEN;
     }
+    await this.cartService.updateCartStatus(this.cart);
   }
   public async clearItems() {
     try {
       await this.itemService.deleteAllItems(this.cart._id);
+      await this.updateCart();
     } catch (error) {
       this.notify.error(error);
     }
@@ -51,32 +53,41 @@ export class CartSidebarComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/order');
     }
   }
+
   async ngOnInit() {
     try {
       this.user = store.getState().authState.user;
+      if (this.user.isAdmin) return;
       this.cart = await this.cartService.getCartByUserIdAndLatest(
         this.user._id
       );
-      if (this.cart || this.cart?.status === StatusType.OPEN) {
+
+      if (this.cart?.status === StatusType.OPEN) {
         this.cartItems = await this.itemService.getItemsByCartId(this.cart._id);
         this.cartTotalPrice = this.cartItems?.reduce(
           (sum, item) => sum + item.totalPrice,
           0
         );
-        this.updateCart();
-        this.unsubscribeFromEvents = await store.subscribe(async () => {
-          try {
-            this.cartItems = store.getState().itemsState.items;
-            this.cartTotalPrice = this.cartItems?.reduce(
-              (sum, item) => sum + item.totalPrice,
-              0
-            );
-            this.updateCart();
-          } catch (error) {
-            this.notify.error(error);
-          }
-        });
+      } else if (!this.cart || this.cart?.status === StatusType.CLOSED) {
+        const cart = new CartModel();
+        cart.userId = this.user._id;
+        cart.status = StatusType.OPEN;
+        await this.cartService.addCart(cart);
+      } else if (this.cart.status === StatusType.EMPTY) {
+        this.cart.status = StatusType.OPEN;
+        await this.cartService.updateCartStatus(this.cart);
       }
+      this.unsubscribeFromEvents = store.subscribe(async () => {
+        try {
+          this.cartItems = store.getState().itemsState.items;
+          this.cartTotalPrice = this.cartItems?.reduce(
+            (sum, item) => sum + item.totalPrice,
+            0
+          );
+        } catch (error) {
+          this.notify.error(error);
+        }
+      });
     } catch (error: any) {
       if (error?.status === 403 || error?.status === 401) {
         this.router.navigateByUrl('/logout', { replaceUrl: true });

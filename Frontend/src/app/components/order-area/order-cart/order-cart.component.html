@@ -10,7 +10,6 @@
       [routerLinkActiveOptions]="{ exact: true }"
       >Back to products</a
     >
-    <mat-divider></mat-divider>
   </div>
   <div class="items-content">
     <ng-template [ngIf]="orderItems">
@@ -22,7 +21,6 @@
     </ng-template>
   </div>
   <div class="items-footer">
-    <mat-divider></mat-divider>
     <p>Total price: {{ totalPrice | currency: "ILS" }}</p>
   </div>
 </div>

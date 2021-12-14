@@ -104,7 +104,6 @@ export class AdminSidebarComponent implements OnInit, OnChanges {
       }
       this.handleAdd();
     } catch (error) {
-      console.log(error);
       this.notify.error(error);
     }
   }

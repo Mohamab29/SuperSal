@@ -35,9 +35,7 @@ export class RegisterComponent {
       return this.notify.error('You need to complete the first step first...');
     }
   }
-  public log(something: string) {
-    console.log(something);
-  }
+
   public backToFirst = () => {
     this.successFirst = false;
     return;

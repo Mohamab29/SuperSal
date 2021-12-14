@@ -4,7 +4,6 @@ function internalServerError(response, error) {
         if (error.code && error.code === 11000) {
             return response.status(500).send("Duplicate id or username")
         }
-        console.log(error)
         return response.status(500).send(error.message);
     }
 

@@ -18,11 +18,14 @@
       >
     </button>
     <div class="categories-btn-group">
-      <button mat-raised-button color="primary">Show All</button>
+      <button mat-raised-button color="primary" (click)="changeCategory('All')">
+        Show All
+      </button>
       <button
         mat-raised-button
         color="primary"
         *ngFor="let category of categories"
+        (click)="changeCategory(category._id)"
       >
         {{ category.name }}
       </button>
@@ -49,13 +52,17 @@
     }}"
   >
     <div class="search-container">
-      <label for="searchInput">Search:</label>
-      <input
-        name="searchInput"
-        type="text"
-        length="50"
-        (keyup)="searchProducts($event)"
-      />
+      <mat-form-field appearance="fill">
+        <mat-label for="searchInput">Search:</mat-label>
+        <input
+          matInput
+          name="searchInput"
+          type="text"
+          length="50"
+          (keyup)="searchProducts($event)"
+        />
+        <span matSuffix><mat-icon>search</mat-icon></span>
+      </mat-form-field>
     </div>
     <div class="products-content">
       <div *ngIf="!products.length">

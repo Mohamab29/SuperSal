@@ -28,6 +28,7 @@ const routes: Routes = [
   {
     path: 'order',
     component: OrderComponent,
+    canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // pathMath: full = exact in React
   { path: '**', component: PageNotFoundComponent }, // 404 - must be last!

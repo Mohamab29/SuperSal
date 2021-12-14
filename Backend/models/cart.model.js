@@ -8,7 +8,7 @@ const CartSchema = mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now().toString(),
+        default: Date.now(),
     },
     status: {
         type: String,

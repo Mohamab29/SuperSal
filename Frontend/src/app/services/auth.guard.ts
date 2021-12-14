@@ -31,7 +31,6 @@ export class AuthGuard implements CanActivate {
 
         return true;
       }
-      console.log('here');
 
       this.notify.error('You are not logged-in');
 

@@ -27,12 +27,16 @@ export class OrderComponent implements OnInit {
   async ngOnInit() {
     try {
       const user = store.getState().authState.user;
-      this.cart = await this.cartService.getCartByUserIdAndLatest(user._id);
-      this.orderItems = await this.itemService.getItemsByCartId(this.cart._id);
-      this.totalPrice = await this.itemService.getTotalCartPrice(
-        this.orderItems
-      );
-    } catch (error:any) {
+      this.cart = store.getState().cartState.cart;
+      if (!this.cart) {
+        this.cart = await this.cartService.getCartByUserIdAndLatest(user._id);
+      } else {
+        this.orderItems = await this.itemService.getItemsByCartId(
+          this.cart._id
+        );
+        this.totalPrice = this.itemService.getTotalCartPrice(this.orderItems);
+      }
+    } catch (error: any) {
       if (error?.status === 403 || error?.status === 401) {
         this.router.navigateByUrl('/logout', { replaceUrl: true });
       }

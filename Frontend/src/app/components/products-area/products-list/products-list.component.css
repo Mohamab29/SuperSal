@@ -44,9 +44,11 @@
     grid-row: 1/2;
     align-self: center;
     justify-self: center;
+    margin-top:2rem;
 }
 
 .products-content {
+    margin-top: 3rem;
     margin-bottom: 2rem;
     width: 100%;
     grid-column: span 2;

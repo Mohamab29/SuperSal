@@ -7,6 +7,7 @@
     border: 1px solid black;
     padding: 3rem;
     display: grid;
+    grid-template-rows:20% 70% 10%;
 }
 
 h3 {
@@ -15,6 +16,7 @@ h3 {
 
 .items-header {
     position: relative;
+    border-bottom: 3px solid #555;
 }
 
 a {
@@ -32,6 +34,7 @@ a {
 }
 
 .items-footer {
+   border-top: 3px solid #555;
     margin-top: 3rem;
 }
 

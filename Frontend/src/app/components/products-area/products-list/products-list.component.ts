@@ -52,6 +52,16 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       this.notify.error(error);
     }
   }
+  public async changeCategory(value: string) {
+    this.products = store.getState().productsState.products;
+    if (value === 'All') {
+        return;
+    } else {
+      this.products = this.products.filter(
+        (product) => product.categoryId === value
+      );
+    }
+  }
   async ngOnInit() {
     try {
       this.products = await this.productsService.getAllProductsAsync();

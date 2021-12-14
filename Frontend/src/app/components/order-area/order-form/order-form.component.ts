@@ -1,3 +1,4 @@
+import { ItemService } from 'src/app/services/items.service';
 import { CartService } from 'src/app/services/carts.service';
 import { ItemModel } from './../../../models/item.model';
 import { Component, Input } from '@angular/core';
@@ -8,6 +9,7 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { OrderService } from 'src/app/services/orders.service';
 import store from 'src/app/redux/store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ItemsActionType } from 'src/app/redux/items-state';
 
 @Component({
   selector: 'app-order-form',
@@ -55,7 +57,8 @@ export class OrderFormComponent {
     private orderService: OrderService,
     private cartService: CartService,
     private router: Router,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private itemService: ItemService
   ) {
     const currentDate = new Date();
     this.minDate = new Date(
@@ -81,6 +84,7 @@ export class OrderFormComponent {
       await this.orderService.addOrderAsync(this.order);
       this.cart.status = StatusType.CLOSED;
       await this.cartService.updateCartStatus(this.cart);
+      store.dispatch({ type: ItemsActionType.ItemsDeleted, payload: null });
       this.notify.success('Order is complete');
       this.router.navigateByUrl('/home', { replaceUrl: true });
     } catch (error) {
