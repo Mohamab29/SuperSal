@@ -3,77 +3,95 @@
     <ng-template [ngIf]="!successFirst">
       <form class="step" (submit)="checkFirstStep()" #formInfo="ngForm">
         <div class="back-btn">
-          <a routerLink="/home" class="register-link"> Home page </a>
+          <button mat-raised-button routerLink="/home" class="register-link">
+            Home page
+          </button>
         </div>
-        <label>Enter ID:</label>
-        <input
-          type="text"
-          name="_id"
-          [(ngModel)]="user._id"
-          required
-          pattern="^\d{9,9}$"
-          #_idInfo="ngModel"
-        />
-        <span *ngIf="_idInfo.errors?.required && _idInfo.touched"
-          >Missing id</span
-        >
-        <span *ngIf="_idInfo.errors?.pattern && _idInfo.touched"
-          >Id must contain 9 numbers between 0 and 9.</span
-        >
-        <label>Enter Email:</label>
-        <input
-          type="email"
-          name="username"
-          [(ngModel)]="user.username"
-          [email]="true"
-          required
-          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,5}$"
-          #usernameInfo="ngModel"
-        />
-        <span *ngIf="usernameInfo.errors?.required && usernameInfo.touched"
-          >Missing email</span
-        >
-        <span *ngIf="usernameInfo.errors?.pattern && usernameInfo.touched"
-          >Email must be legal</span
-        >
-
-        <label>Enter Password:</label>
-        <input
-          type="password"
-          name="password"
-          [(ngModel)]="user.password"
-          required
-          pattern="(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}"
-          #passwordInfo="ngModel"
-          (change)="onChangePassword()"
-        />
-        <span *ngIf="passwordInfo.errors?.required && passwordInfo.touched"
-          >Missing password</span
-        >
-        <span *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched"
-          >Password must between 8 to 30 characters and strong
-          (small,capital,symbol,numbers)
-          
-        </span>
-
-        <label>Confirm password:</label>
-        <input
-          type="password"
-          [(ngModel)]="user.confirmPassword"
-          required
-          #confirmPasswordInfo="ngModel"
-          (change)="onChangePassword()"
-          name="confirmPassword"
-        />
-        <span
-          *ngIf="
-            confirmPasswordInfo.errors?.required && confirmPasswordInfo.touched
-          "
-          >Missing confirm password</span
-        >
-        <span *ngIf="!passwordsMatch">The password doesn't match</span>
-
+        <mat-form-field>
+          <mat-label>Your Id: </mat-label>
+          <input
+            matInput
+            type="text"
+            name="_id"
+            [(ngModel)]="user._id"
+            required
+            pattern="^\d{9,9}$"
+            #_idInfo="ngModel"
+          />
+          <mat-error *ngIf="_idInfo.errors?.required && _idInfo.touched"
+            >Missing id</mat-error
+          >
+          <mat-error *ngIf="_idInfo.errors?.pattern && _idInfo.touched"
+            >Id must contain 9 numbers between 0 and 9.</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Username (email): </mat-label>
+          <input
+            matInput
+            type="email"
+            name="username"
+            [(ngModel)]="user.username"
+            [email]="true"
+            required
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,5}$"
+            #usernameInfo="ngModel"
+          />
+          <mat-error
+            *ngIf="usernameInfo.errors?.required && usernameInfo.touched"
+            >Missing email</mat-error
+          >
+          <mat-error
+            *ngIf="usernameInfo.errors?.pattern && usernameInfo.touched"
+            >Email must be legal</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password: </mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            [(ngModel)]="user.password"
+            required
+            pattern="(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}"
+            #passwordInfo="ngModel"
+            (change)="onChangePassword()"
+          />
+          <mat-error
+            *ngIf="passwordInfo.errors?.required && passwordInfo.touched"
+            >Missing password</mat-error
+          >
+          <mat-error
+            *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched"
+            >Password must between 8 to 30 characters and strong
+            (small,capital,symbol,numbers)
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Confirm password:</mat-label>
+          <input
+            matInput
+            type="password"
+            [(ngModel)]="user.confirmPassword"
+            required
+            #confirmPasswordInfo="ngModel"
+            (change)="onChangePassword()"
+            name="confirmPassword"
+          />
+          <mat-error
+            *ngIf="
+              confirmPasswordInfo.errors?.required &&
+              confirmPasswordInfo.touched
+            "
+            >Missing confirm password</mat-error
+          >
+          <mat-error *ngIf="!passwordsMatch"
+            >The password doesn't match</mat-error
+          >
+        </mat-form-field>
         <button
+          mat-raised-button
           class="btn-nxt-stage"
           [disabled]="formInfo.form.invalid || !passwordsMatch"
         >
@@ -83,102 +101,128 @@
     </ng-template>
     <ng-template [ngIf]="successFirst">
       <form class="step" (submit)="register()" #formInfo="ngForm">
-        <button type="button" class="back-btn" (click)="backToFirst()">
+        <button
+          mat-raised-button
+          type="button"
+          class="back-btn"
+          (click)="backToFirst()"
+        >
           Back
         </button>
-        <label>First name: </label>
-        <input
-          type="text"
-          name="firstName"
-          [(ngModel)]="user.firstName"
-          required
-          pattern="^[A-Z].*$"
-          #firstNameInfo="ngModel"
-          minlength="2"
-          maxlength="20"
-        />
-        <span *ngIf="firstNameInfo.errors?.required && firstNameInfo.touched"
-          >Missing first name</span
-        >
-        <span *ngIf="firstNameInfo.errors?.pattern && firstNameInfo.touched"
-          >First name must be capitalized</span
-        >
-        <span *ngIf="firstNameInfo.errors?.minlength && firstNameInfo.touched"
-          >First name must be minimum two chars</span
-        >
-        <span *ngIf="firstNameInfo.errors?.maxlength && firstNameInfo.touched"
-          >First name an't exceed 20 chars.</span
-        >
-        <label>Last name: </label>
-        <input
-          type="text"
-          name="lastName"
-          [(ngModel)]="user.lastName"
-          required
-          pattern="^[A-Z].*$"
-          #lastNameInfo="ngModel"
-          minlength="2"
-          maxlength="30"
-        />
-        <span *ngIf="lastNameInfo.errors?.required && lastNameInfo.touched"
-          >Missing last name</span
-        >
-        <span *ngIf="lastNameInfo.errors?.pattern && lastNameInfo.touched"
-          >Last name must be capitalized</span
-        >
-        <span *ngIf="lastNameInfo.errors?.minlength && lastNameInfo.touched"
-          >Last name must be minimum two chars</span
-        >
-        <span *ngIf="lastNameInfo.errors?.maxlength && lastNameInfo.touched"
-          >Last name an't exceed 20 chars.</span
-        >
-        <label>city: </label>
-        <input
-          type="text"
-          name="city"
-          [(ngModel)]="user.city"
-          required
-          pattern="^[A-Z].*$"
-          #cityInfo="ngModel"
-          minlength="2"
-          maxlength="40"
-        />
-        <span *ngIf="cityInfo.errors?.required && cityInfo.touched"
-          >Missing city</span
-        >
-        <span *ngIf="cityInfo.errors?.pattern && cityInfo.touched"
-          >city must be capitalized</span
-        >
-        <span *ngIf="cityInfo.errors?.minlength && cityInfo.touched"
-          >city must be minimum two chars</span
-        >
-        <span *ngIf="cityInfo.errors?.maxlength && cityInfo.touched"
-          >city an't exceed 40 chars.</span
-        >
-        <label>street: </label>
-        <input
-          type="text"
-          name="street"
-          [(ngModel)]="user.street"
-          required
-          pattern="^[A-Z].*$"
-          #streetInfo="ngModel"
-          minlength="2"
-          maxlength="50"
-        />
-        <span *ngIf="streetInfo.errors?.required && streetInfo.touched"
-          >Missing street</span
-        >
-        <span *ngIf="streetInfo.errors?.pattern && streetInfo.touched"
-          >street must be capitalized</span
-        >
-        <span *ngIf="streetInfo.errors?.minlength && streetInfo.touched"
-          >street must be minimum two chars</span
-        >
-        <span *ngIf="streetInfo.errors?.maxlength && streetInfo.touched"
-          >street an't exceed 50 chars.</span
-        >
+        <mat-form-field>
+          <mat-label>First name: </mat-label>
+          <input
+            matInput
+            type="text"
+            name="firstName"
+            [(ngModel)]="user.firstName"
+            required
+            pattern="^[A-Z].*$"
+            #firstNameInfo="ngModel"
+            minlength="2"
+            maxlength="20"
+          />
+          <mat-error
+            *ngIf="firstNameInfo.errors?.required && firstNameInfo.touched"
+            >Missing first name</mat-error
+          >
+          <mat-error
+            *ngIf="firstNameInfo.errors?.pattern && firstNameInfo.touched"
+            >First name must be capitalized</mat-error
+          >
+          <mat-error
+            *ngIf="firstNameInfo.errors?.minlength && firstNameInfo.touched"
+            >First name must be minimum two chars</mat-error
+          >
+          <mat-error
+            *ngIf="firstNameInfo.errors?.maxlength && firstNameInfo.touched"
+            >First name an't exceed 20 chars.</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Last name: </mat-label>
+          <input
+            matInput
+            type="text"
+            name="lastName"
+            [(ngModel)]="user.lastName"
+            required
+            pattern="^[A-Z].*$"
+            #lastNameInfo="ngModel"
+            minlength="2"
+            maxlength="30"
+          />
+          <mat-error
+            *ngIf="lastNameInfo.errors?.required && lastNameInfo.touched"
+            >Missing last name</mat-error
+          >
+          <mat-error
+            *ngIf="lastNameInfo.errors?.pattern && lastNameInfo.touched"
+            >Last name must be capitalized</mat-error
+          >
+          <mat-error
+            *ngIf="lastNameInfo.errors?.minlength && lastNameInfo.touched"
+            >Last name must be minimum two chars</mat-error
+          >
+          <mat-error
+            *ngIf="lastNameInfo.errors?.maxlength && lastNameInfo.touched"
+            >Last name an't exceed 20 chars.</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>city: </mat-label>
+          <input
+            matInput
+            type="text"
+            name="city"
+            [(ngModel)]="user.city"
+            required
+            pattern="^[A-Z].*$"
+            #cityInfo="ngModel"
+            minlength="2"
+            maxlength="40"
+          />
+          <mat-error *ngIf="cityInfo.errors?.required && cityInfo.touched"
+            >Missing city</mat-error
+          >
+          <mat-error *ngIf="cityInfo.errors?.pattern && cityInfo.touched"
+            >city must be capitalized</mat-error
+          >
+          <mat-error *ngIf="cityInfo.errors?.minlength && cityInfo.touched"
+            >city must be minimum two chars</mat-error
+          >
+          <mat-error *ngIf="cityInfo.errors?.maxlength && cityInfo.touched"
+            >city an't exceed 40 chars.</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>street: </mat-label>
+          <input
+            matInput
+            type="text"
+            name="street"
+            [(ngModel)]="user.street"
+            required
+            pattern="^[A-Z].*$"
+            #streetInfo="ngModel"
+            minlength="2"
+            maxlength="50"
+          />
+          <mat-error *ngIf="streetInfo.errors?.required && streetInfo.touched"
+            >Missing street</mat-error
+          >
+          <mat-error *ngIf="streetInfo.errors?.pattern && streetInfo.touched"
+            >street must be capitalized</mat-error
+          >
+          <mat-error *ngIf="streetInfo.errors?.minlength && streetInfo.touched"
+            >street must be minimum two chars</mat-error
+          >
+          <mat-error *ngIf="streetInfo.errors?.maxlength && streetInfo.touched"
+            >street an't exceed 50 chars.</mat-error
+          >
+        </mat-form-field>
         <button
+        mat-raised-button
           type="submit"
           class="btn-nxt-stage"
           [disabled]="formInfo.form.invalid"

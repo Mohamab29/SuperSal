@@ -4,7 +4,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: yellow;
+    background-color: #FDD253;
+}
+
+p {
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 .left-header {
@@ -17,4 +22,9 @@
 
 .right-header {
     margin-right: 3rem;
+}
+
+div>button {
+    font-weight: bold;
+    background-color: #EF9A9A;
 }

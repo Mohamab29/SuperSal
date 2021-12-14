@@ -20,7 +20,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   public categories: CategoryModel[] = [];
   public unsubscribeFromProducts: Unsubscribe;
   public unsubscribeFromUser: Unsubscribe;
-  public user: UserModel = new UserModel();
+  public user: UserModel = store.getState().authState.user;
   public productForEdit: ProductModel;
 
   constructor(

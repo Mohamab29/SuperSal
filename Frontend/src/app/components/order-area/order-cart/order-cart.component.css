@@ -4,10 +4,12 @@
     width: 50vw;
     max-width: 90%;
     background-color: aliceblue;
-    border: 1px solid black;
     padding: 3rem;
     display: grid;
     grid-template-rows:20% 70% 10%;
+    box-shadow: 0px 0px 20px 0px #A3A1A1;
+    border-radius:3%;
+    background-color: #FFEBEE;
 }
 
 h3 {

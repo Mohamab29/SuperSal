@@ -1,12 +1,13 @@
 .form-container {
     height: 60vh;
     width: 30vw;
-    background-color: aliceblue;
-    border: 1px solid black;
     padding:3rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0px 0px 20px 0px #A3A1A1;
+    border-radius:3%;
+    background-color: #FFEBEE;
 }
 .form{
     width: 100%;

@@ -5,7 +5,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 3px solid #555;
+    border-radius:3%;
+    background-color: #FFEBEE;
 }
 
 .mat-title {
@@ -13,10 +14,11 @@
     margin-left: 1rem;
 }
 .sidebar-form{
-    margin-top: 3rem;
+
     padding: 1rem;
-    background-color: aliceblue;
-    border-radius: 25%;
+    background-color: #FFEBEE;
+    box-shadow: 0px 0px 20px 0px #A3A1A1;
+    border-radius:0 0 5% 5%;
 }
 .sidebar-form>form {
     margin-top: 1rem;

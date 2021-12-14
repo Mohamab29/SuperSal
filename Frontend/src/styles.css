@@ -7,7 +7,8 @@
 html, body {
     padding: 0;
     width: 100%;
-    background-color: antiquewhite;
+    background: #FFFDE7;
+    background: linear-gradient(151deg, #FFFDE7 3%, #FCC5C7 52%);
     font-weight: bold;
     font-size: 1.1rem;
     color: #171515;

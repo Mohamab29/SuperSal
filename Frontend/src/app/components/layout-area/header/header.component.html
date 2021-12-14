@@ -12,7 +12,7 @@
     <ng-template #showName>
       <p>Hello {{ user.firstName + " " + user.lastName }}</p>
       <div *ngIf="user; else nothing">
-        <button (click)="logout()">Logout</button>
+        <button mat-raised-button (click)="logout()">Logout</button>
       </div>
       <ng-template #nothing></ng-template>
     </ng-template>

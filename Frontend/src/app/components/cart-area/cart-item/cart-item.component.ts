@@ -21,7 +21,6 @@ export class CartItemComponent implements OnInit {
   constructor(
     private notify: NotifyService,
     private itemService: ItemService,
-    private http: HttpClient
   ) {}
 
   ngOnInit(): void {

@@ -1,37 +1,43 @@
 <div class="login-panel">
   <div class="login-form">
-    <h3>Please login to start shopping :)</h3>
+    <h2 class="mat-title">Please login to start shopping :)</h2>
     <form (submit)="login()" #formInf="ngForm">
-      <label>Enter username:</label>
-      <input
-        type="email"
-        class="input"
-        type="email"
-        name="username"
-        [(ngModel)]="credentials.username"
-        [email]="true"
-        required
-        #usernameInfo="ngModel"
-      />
-      <span *ngIf="usernameInfo.errors?.required && usernameInfo.touched"
-        >Missing email</span
-      >
-      <label>Enter password:</label>
-      <input
-        class="input"
-        type="password"
-        name="password"
-        [(ngModel)]="credentials.password"
-        required
-        #passwordInfo="ngModel"
-      />
-      <span *ngIf="passwordInfo.errors?.required && passwordInfo.touched"
-        >Missing password</span
-      >
-      <button type="submit">Login</button>
+      <mat-form-field>
+        <mat-label>Enter username:</mat-label>
+        <input
+          matInput
+          type="email"
+          class="input"
+          type="email"
+          name="username"
+          [(ngModel)]="credentials.username"
+          [email]="true"
+          required
+          #usernameInfo="ngModel"
+        />
+        <mat-error *ngIf="usernameInfo.errors?.required && usernameInfo.touched"
+          >Missing email</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Enter password:</mat-label>
+        <input
+          matInput
+          class="input"
+          type="password"
+          name="password"
+          [(ngModel)]="credentials.password"
+          required
+          #passwordInfo="ngModel"
+        />
+        <mat-error *ngIf="passwordInfo.errors?.required && passwordInfo.touched"
+          >Missing password</mat-error
+        >
+      </mat-form-field>
+      <button mat-raised-button type="submit">Login</button>
     </form>
     <div class="not-registered">
-      <a routerLink="/register" class="register-link">
+      <a mat-button routerLink="/register" class="register-link">
         don't have a user yet?
       </a>
     </div>
