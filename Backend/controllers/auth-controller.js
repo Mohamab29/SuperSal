@@ -55,6 +55,6 @@ router.post("/register", async (request, response) => {
     }
 });
 
-router.get('/is-logged-in', verifyLoggedIn, async (request, response) => {});
+router.get('/is-logged-in', verifyLoggedIn, async (request, response) => { });
 
 module.exports = router;
